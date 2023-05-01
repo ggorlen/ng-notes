@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AngularJS Notes</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="{{url_for("static", filename="script.js")}}"></script>
+  </head>
+  <body>
+    <h2>Notes</h2>
+    <div ng-app="notesApp">
+      <note-list label-text="Add a note:"></note-list>
+    </div>
+  </body>
+</html>
