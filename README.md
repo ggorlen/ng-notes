@@ -31,6 +31,11 @@ The site should be running at <http://localhost:5000>
   - request format: `{"text": "hello world"}`
   - response: `{"id": 1, "text": "hello world"}`, 201
   - error response: `{"error": "Missing key 'text'"}`, 422
+- `PUT /api/notes/<id>`: update an existing note
+  - request format: `{"id": 1, "text": "goodbye world"}`
+  - response: `{"id": 1, "text": "goodbye world"}`, 200
+  - error response: `{"error": "Missing key 'text'"}`, 422
+  - error response: `{"error": "Not found"}`, 404
 - `DELETE /api/notes/<id>`: delete one note by id
   - response: `{"message": "Successfully deleted"}`, 204
   - error response: `{"error": "Not found"}`, 404
