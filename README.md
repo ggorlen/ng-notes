@@ -25,7 +25,7 @@ The site should be running at <http://localhost:5000>
 - `GET /api/notes`: get all notes
   - response: `{"notes": [{"id": 1, "text": "hello world"}]}`, 200
 - `GET /api/notes/<id>`: get one note by id
-  - response: `{"id": 1, "text": "hello world"}`, 
+  - response: `{"id": 1, "text": "hello world"}`, 200
   - error response: `{"error": "Not found"}`, 404
 - `POST /api/notes`: create a new note
   - request format: `{"text": "hello world"}`
