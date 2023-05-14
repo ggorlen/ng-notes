@@ -57,7 +57,6 @@ def note(note_id):
     return {"message": "Successfully deleted"}, 204
 
 
-
 if __name__ == "__main__":
     app.run(debug=True)
 
