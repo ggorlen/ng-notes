@@ -14,6 +14,10 @@ angular
       return $http.get(`${baseUrl}/notes`)
         .then(response => response.data.notes);
     },
+    update(noteId, text) {
+      return $http.put(`${baseUrl}/notes/${noteId}`, {text})
+        .then(response => response.data);
+    },
     delete(noteId) {
       return $http.delete(`${baseUrl}/notes/${noteId}`)
         .then(response => response.data);
@@ -29,18 +33,24 @@ angular
   controllerAs: "$ctrl",
   template: `
     <div>
-      <label>
-        {{$ctrl.labelText}}
-        <input ng-model="$ctrl.newNote" />
-      </label>
-      <button ng-click="$ctrl.addNote()">add note</button>
+      <form>
+        <label>
+          {{$ctrl.labelText}}
+          <input ng-model="$ctrl.newNote" />
+        </label>
+        <input type="submit" ng-click="$ctrl.addNote()">
+      </form>
       <div>{{$ctrl.error}}</div>
       <ul>
-        <div ng-if="!$ctrl.notes && !error">
+        <div ng-if="!$ctrl.notes && !$ctrl.error">
           loading...
         </div>
         <li ng-repeat="note in $ctrl.notes">
-          <span>{{note.text}}</span>
+          <input
+            ng-model="note.text"
+            ng-blur="$ctrl.updateNote(note)"
+          >
+          </span>
           <button ng-click="$ctrl.deleteNote(note.id)">x</button>
         </li>
       </ul>
@@ -54,8 +64,8 @@ angular
   ctrl.newNote = "";
   ctrl.error = "";
 
-  const showError = err => {
-    ctrl.error = err.xhrStatus;
+  const showError = response => {
+    ctrl.error = response?.data.error ?? response.xhrStatus;
   };
 
   ctrl.getNotes = () =>
@@ -72,6 +82,12 @@ angular
         ctrl.newNote = "";
         return ctrl.getNotes();
       })
+      .catch(showError);
+
+  ctrl.updateNote = note =>
+    NotesService
+      .update(note.id, note.text)
+      .then(() => ctrl.getNotes())
       .catch(showError);
 
   ctrl.deleteNote = noteId =>

@@ -12,7 +12,7 @@ def id_maker(_identifier=0):
 
 app = Flask(__name__)
 next_id = id_maker()
-_notes = [{"id": next_id(), "text": "test 1"}]
+_notes = [{"id": next_id(), "text": "sample note"}]
 
 
 @app.route("/")
@@ -32,21 +32,30 @@ def notes():
     return note, 201
 
 
-@app.route("/api/notes/<int:note_id>", methods=["GET", "DELETE"])
+@app.route("/api/notes/<int:note_id>", methods=["GET", "PUT", "DELETE"])
 def note(note_id):
     if request.method == "GET":
-        if note := [x for x in _notes if x["id"] == note_id]:
-            return next(note)
+        if note := next((x for x in _notes if x["id"] == note_id), None):
+            return note
+
+        return {"error": "Not found"}, 404
+    elif request.method == "PUT":
+        if "text" not in request.json:
+            return {"error": "Missing key 'text'"}, 422
+        elif note := next((x for x in _notes if x["id"] == note_id), None):
+            note["text"] = request.json["text"]
+            return note
 
         return {"error": "Not found"}, 404
 
-    idx = [i for i, x in enumerate(_notes) if x["id"] == note_id]
+    idx = next((i for i, x in enumerate(_notes) if x["id"] == note_id), None)
 
-    if not idx:
+    if idx is None:
         return {"error": "Not found"}, 404
 
-    _notes.pop(idx[0])
+    _notes.pop(idx)
     return {"message": "Successfully deleted"}, 204
+
 
 
 if __name__ == "__main__":
