@@ -41,10 +41,10 @@ angular
         <input type="submit" ng-click="$ctrl.addNote()">
       </form>
       <div>{{$ctrl.error}}</div>
+      <div ng-if="!$ctrl.notes && !$ctrl.error">
+        loading...
+      </div>
       <ul>
-        <div ng-if="!$ctrl.notes && !$ctrl.error">
-          loading...
-        </div>
         <li ng-repeat="note in $ctrl.notes">
           <input
             ng-model="note.text"
