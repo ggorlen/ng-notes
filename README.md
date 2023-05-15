@@ -37,5 +37,5 @@ The site should be running at <http://localhost:5000>
   - error response: `{"error": "Missing key 'text'"}`, 422
   - error response: `{"error": "Not found"}`, 404
 - `DELETE /api/notes/<id>`: delete one note by id
-  - response: `{"message": "Successfully deleted"}`, 204
+  - response: `{"message": "Successfully deleted"}`, 200
   - error response: `{"error": "Not found"}`, 404

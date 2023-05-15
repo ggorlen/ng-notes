@@ -54,7 +54,7 @@ def note(note_id):
         return {"error": "Not found"}, 404
 
     _notes.pop(idx)
-    return {"message": "Successfully deleted"}, 204
+    return {"message": "Successfully deleted"}, 200
 
 
 if __name__ == "__main__":
