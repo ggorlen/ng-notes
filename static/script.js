@@ -65,7 +65,7 @@ angular
   ctrl.error = "";
 
   const showError = response => {
-    ctrl.error = response?.data.error ?? response.xhrStatus;
+    ctrl.error = response.data?.error ?? response.xhrStatus;
   };
 
   ctrl.getNotes = () =>
