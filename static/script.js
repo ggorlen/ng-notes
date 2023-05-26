@@ -58,7 +58,7 @@ angular
   `,
 })
 
-.controller("NoteListCtrl", function NoteListCtrl($http, NotesService) {
+.controller("NoteListCtrl", function NoteListCtrl(NotesService) {
   const ctrl = this;
   ctrl.notes = null;
   ctrl.newNote = "";
