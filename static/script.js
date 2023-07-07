@@ -58,14 +58,14 @@ angular
   `,
 })
 
-.controller("NoteListCtrl", function NoteListCtrl($http, NotesService) {
+.controller("NoteListCtrl", function NoteListCtrl(NotesService) {
   const ctrl = this;
   ctrl.notes = null;
   ctrl.newNote = "";
   ctrl.error = "";
 
   const showError = response => {
-    ctrl.error = response?.data.error ?? response.xhrStatus;
+    ctrl.error = response.data?.error ?? response.xhrStatus;
   };
 
   ctrl.getNotes = () =>
